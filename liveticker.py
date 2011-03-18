@@ -83,7 +83,7 @@ def parse_line(line):
     return
     
 
-def doStuff(symbols=""):
+def doStuff(symbols="", pretty=True):
   if symbols == "":
     symbols = "SPY"
   conn = ''
@@ -97,7 +97,14 @@ def doStuff(symbols=""):
       line += char
       data = parse_line(line)
       if data:
-        print(data)
+        if pretty:
+          try:
+            k, v = data.items()[0]
+            print "%s: %s" % (k, v['l90'])
+          except:
+            print(data)
+        else:
+           print(data)
       line = ''
     else:
       line += char
