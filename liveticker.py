@@ -1,4 +1,5 @@
-import httplib 
+import httplib
+import sys
 import re
 import simplejson as json
 from threading import Thread
@@ -82,9 +83,11 @@ def parse_line(line):
     return
     
 
-def doStuff():
+def doStuff(symbols=""):
+  if symbols == "":
+    symbols = "SPY"
   conn = ''
-  r = open("SPY,VXX,GS","l90")
+  r = open(symbols,"l90")
 
   line = ''
 
@@ -102,4 +105,8 @@ def doStuff():
   con.close();
 
 if __name__ == "__main__":
-  doStuff()
+  try:
+    symbols = ",".join(sys.argv[1:])
+  except:
+    symbols = ""
+  doStuff(symbols=symbols)
